@@ -1,0 +1,21 @@
+<?php
+session_start();
+include 'conn.php';
+if (!isset($_SESSION['cust_id'])) {
+	header("location:index.php");
+}
+
+$cust_id=$_SESSION['cust_id'];
+
+$userr= "SELECT * FROM customer WHERE cus_id='$cust_id'";
+$exl= mysqli_query($db,$userr);
+$erow= mysqli_fetch_array($exl);
+$admin_name=$erow['fullname'];
+$admin_email=$erow['email'];
+$admin_password=$erow['password'];
+
+
+// 0787559716
+// 0783150141
+
+  ?>

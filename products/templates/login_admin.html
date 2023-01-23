@@ -1,0 +1,122 @@
+<?php ob_start();
+include'header.php';
+session_start();?>
+    <main class="mt-5">
+      <div class="container">
+        <section class="text-center mb-4">
+        <div class="card mb-3 offset-3" style="max-width: 540px;">
+          <div class="row g-0">
+            
+            <div class="col-md-12 p-3">
+              <?php
+               $email="";
+               $password="";
+               $tasks="";
+               if(isset($_POST["login"])) {
+
+                $email=$_POST["email"];
+                $password=$_POST["password"];
+                
+
+
+                
+                 $selectsecurity="SELECT * FROM admin WHERE ad_password='$password' AND ad_email='$email'";
+                $Security=mysqli_query($db,$selectsecurity);
+                $stu=mysqli_num_rows($Security);
+                $srow=mysqli_fetch_array($Security);
+
+                  if ($stu > 0) {
+
+                    $_SESSION['admin_id']=$srow['adm_id'];
+                   header("location:admin/dashboard.php");
+                  }
+                  else{
+                 ?>
+                 
+                 <div class="alert alert-danger animated shake " id="aji" >
+                   <button class="close" data-dismiss="alert"></button>
+                   <center><i>Username or Password is incorect #!!!!</i></center>
+                 </div>
+               
+                 <?php
+                }
+                 
+               
+            }
+                 
+          ?>
+              <h3>Admin Signin Form</h3>
+              <form method="post" action="#">
+              <label for="basic-url" class="form-label">Your Email</label>
+              <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <input type="text" class="form-control" placeholder="Email" aria-label="Username"
+                 aria-describedby="basic-addon1" name="email" />
+                 <span class="input-group-text" id="basic-addon2">Email</span>
+             </div>
+             <label for="basic-url" class="form-label">Your Password</label>
+             <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <input type="password" class="form-control" placeholder="Username" aria-label="Username"
+                 aria-describedby="basic-addon1" name="password" />
+                 <span class="input-group-text" id="basic-addon2">Password</span>
+             </div>
+             
+             <div class="input-group mb-3">
+               <button type="submit" class="btn btn-primary btn-block" name="login">login</button>
+             </div>
+             </form>
+             
+            </div>
+          </div>
+        </div>
+        </section>
+      </div>
+    </main>
+    <!-- End your project here-->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+       <!--       <div class="col-md-6 p-3 ">
+              <h3>Signup Form</h3>
+              <label for="basic-url" class="form-label">Your vanity URL</label>
+             <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                 aria-describedby="basic-addon1" />
+             </div>
+
+             <div class="input-group mb-3">
+               <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+                 aria-describedby="basic-addon2" />
+               <span class="input-group-text" id="basic-addon2">@example.com</span>
+             </div>
+
+             <label for="basic-url" class="form-label">Your vanity URL</label>
+             <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+               <input type="text" class="form-control" id="basic-url1" aria-describedby="basic-addon3" />
+             </div>
+
+             <div class="input-group mb-3">
+               <span class="input-group-text">$</span>
+               <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+               <span class="input-group-text">.00</span>
+             </div>
+
+             <div class="input-group mb-3">
+               <input type="text" class="form-control" placeholder="Username" aria-label="Username" />
+               <span class="input-group-text">@</span>
+               <input type="text" class="form-control" placeholder="Server" aria-label="Server" />
+             </div>
+
+             <div class="input-group">
+               <span class="input-group-text">With textarea</span>
+               <textarea class="form-control" aria-label="With textarea"></textarea>
+             </div>
+            </div> -->
+  </body>
+</html>
+<?php  ob_end_flush();?>

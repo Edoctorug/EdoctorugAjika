@@ -1,0 +1,111 @@
+{% extends 'header.html' %}
+
+{% block content %}
+    <main class="mt-5">
+      <div class="container">
+        <section class="text-center mb-4">
+        <div class="card mb-3 offset-2" style="max-width: 840px;">
+          <div class="row g-0">
+            <div class="col-md-6 p-3 ">
+              <h3>Signup Form</h3>
+              
+              {% if form.errors %}
+                
+                  <div class="alert alert-danger strover animated shake col-md-12"id="sams1">
+                    
+                    <center><i>{{ form.errors }}</i></center>
+                 </div>
+                
+              {% endif %}
+                       
+              <form method="POST" action="{% url 'products:login' %}" id="reg_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group col-md-12 mb-3">
+                  <div class="input-group ">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    {{form.username}}
+                      <span class="input-group-text" id="basic-addon2">Username</span>
+                  </div>
+                  </div>
+                  
+                  <div class="form-group col-md-12 mb-3">
+                  <div class="input-group " id="email">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    {{form.email}}
+                      <span class="input-group-text" id="basic-addon2">Email</span>
+                  </div>
+                  </div>
+                  <!-- <div class="form-group col-md-12 mb-3">
+                    <div class="input-group " id="email">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                      {{form.image}}
+                        <span class="input-group-text" id="basic-addon2">Image</span>
+                    </div>
+                    </div> -->
+                  <div class="form-group col-md-12 mb-3">
+                  <div class="input-group " id="password">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    {{form.password1}}
+                      <span class="input-group-text" id="basic-addon2">Password</span>
+                  </div>
+                  </div>
+                  <div class="form-group col-md-12 mb-3">
+                    <div class="input-group ">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                      {{form.password2}}
+                        <span class="input-group-text" id="basic-addon2">Confirm Password</span>
+                    </div>
+                    </div>
+                  <div class="form-group col-md-12 mb-3">
+                  <div class="input-group ">
+                    <button type="submit" class="btn btn-primary btn-block" name="register">Signup</button>
+                  </div>
+                  </div>
+                  
+             </form>
+             
+             
+
+             
+            </div>
+            <div class="col-md-6 p-3 ">
+              <h3>Signin Form</h3>
+             
+              {% if messages %}
+               {% for message in messages %} 
+              <div class="alert alert-danger strover animated shake col-md-12"id="sams1">
+                
+                <center><i>{{ message }}</i></center>
+             </div>
+               {% endfor %}
+             {% endif %}
+              <form method="post" action="{% url 'products:login_client' %}" >
+                {% csrf_token %}
+              <label for="basic-url" class="form-label">Your Email</label>
+              <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                 aria-describedby="basic-addon1" name="username" />
+                 <span class="input-group-text" id="basic-addon2">Email</span>
+             </div>
+             <label for="basic-url" class="form-label">Your Password</label>
+             <div class="input-group mb-3">
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <input type="password" class="form-control" placeholder="*************" aria-label="Username"
+                 aria-describedby="basic-addon1" name="password" />
+                 <span class="input-group-text" id="basic-addon2">Password</span>
+             </div>
+             
+             <div class="input-group mb-3">
+               <button type="submit" class="btn btn-primary btn-block" name="login">Send</button>
+             </div>
+             </form>
+             
+            </div>
+          </div>
+        </div>
+        </section>
+      </div>
+    </main>
+
+{% endblock %}

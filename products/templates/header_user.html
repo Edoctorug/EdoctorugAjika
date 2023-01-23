@@ -1,0 +1,159 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>JJ Supermarket</title>
+    
+    <!-- MDB icon -->
+    
+  
+    <link rel="icon" href="{% static 'products/img/apple.png' %}" type="image/x-icon" />
+    
+   <link rel="stylesheet" href="{% static 'products/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+   <link rel="stylesheet" href="{% static 'products/css/validecss.css' %}">
+   <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+   
+    <link rel="stylesheet" href="{% static 'products/css/mdb.min.css' %}" />
+   
+    
+  </head>
+  <script>
+    let user = "{{ request.user }}";
+    function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+   </script> 
+  <body>
+    <!-- Start your project here-->
+    <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <img
+              src="{% static 'products/img/apple.png' %}"
+              height="15"
+              alt=""
+              loading="lazy"
+            />
+          </a>
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'products:client' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'products:client' %}">Homepage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Icon -->
+          <a class="text-reset me-3" href="#">
+            
+            <a href="{% url 'products:cart_page' %}" class="badge badge-pill bg-danger">{{ cart.qty_cart_total }}</a>
+            <span><i class="fa fa-shopping-cart text-light"></i></span>
+          </a>
+
+          <!-- Notifications -->
+          <a
+            class="text-reset me-3 dropdown-toggle hidden-arrow "
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+           <i class="text-light">{{ user.username }}</i>
+            <i class="fa fa-angle-double-down text-light"></i>
+            
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" href="list">Purchase List</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="edit_user">Update</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'products:logout' %}">Logout</a>
+            </li>
+          </ul>
+
+          <!-- Avatar -->
+          <a
+            class="dropdown-toggle d-flex align-items-center hidden-arrow"
+            href="#"
+            
+          >
+            <img
+              src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+              class="rounded-circle"
+              height="25"
+              alt=""
+              loading="lazy"
+            />
+          </a>
+        
+        </div>
+        <!-- Right elements -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    </header>
+{% block content %}
+
+{% endblock %}
+
+{% include 'footer_user.html' %}
+
+
+<!-- Custom scripts -->
+<!-- <script type="text/javascript" src="{% static 'products/js/cart.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'js/cart.js' %}"></script> -->
+</body>
+</html>

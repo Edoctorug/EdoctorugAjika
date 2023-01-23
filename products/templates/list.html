@@ -1,0 +1,87 @@
+<?php
+include 'session.php';
+
+include 'header_user.php';
+
+?>
+<div class="container">
+	<div class="row">
+		<h3 class="text-center">Your Purchase's Details</h3>
+	</div>
+	<div class="row mt-2">
+		<div id="order_table" class="col-md-10 offset-1">
+            <table id="dtBasicExample" class="table table-sm " style="background-color: #F6FBFA" cellspacing="0" width="100%">
+              <thead class="">
+                <tr style="">
+                  
+                  <th class="th-sm font-weight-bold">No</th>
+                  <th class="th-sm font-weight-bold">Photo</th>
+                  <th class="th-sm font-weight-bold">Name</th>
+                  <th class="th-sm font-weight-bold">Client</th>
+                  <th class="th-sm font-weight-bold">Quantity</th>
+                  <th class="th-sm font-weight-bold">Price</th>
+                  <th class="th-sm font-weight-bold">Total/frw</th>
+                  <th class="th-sm font-weight-bold">Status</th>
+                  <th class="th-sm font-weight-bold">Date</th>
+
+                  
+                </tr>
+                </thead>
+                <tbody>
+                
+                  <?php
+      
+                
+
+                       $select="SELECT *,sell.s_id AS sid FROM sell JOIN product_category ON sell.cat_id=product_category.c_id JOIN product ON sell.pro_id=product.p_id JOIN customer ON sell.cust_id=customer.cus_id WHERE cust_id='$cust_id'";
+                       $query = mysqli_query($db,$select);
+                       $nbr = mysqli_num_rows($query);
+                       $i=1;
+                      if ($nbr>0) {
+                       
+                      
+                       while($row = mysqli_fetch_array($query)){
+                        $id=$row['sid'];
+                        
+                        
+                       
+                          $i>0;  
+                          ?>
+                          <tr>
+                            <td><?php echo $i;?></td>
+                            <td><img src="img/<?php echo $row['p_picture']?>" style="width:80px;height: 50px;"></td>
+                            <td><?php echo $row['p_name'];?></td>
+                            <td><?php echo $row['c_name'];?></td>  
+                            <td><?php echo $row['s_qty'];?></td>
+                            <td><?php echo $row['s_price'];?></td>
+                            <td><?php echo $row['s_total'];?></td>
+                            <td><?php echo $row['cust_status'];?></td>
+                            <td><?php echo $row['s_date'];?></td>
+                          </tr>
+                          <?php
+                           $i++;  
+                         }
+                         }
+                         else
+                         {
+                          ?> 
+                             <div class="row" style="margin-top: 3%;">
+                                    <div class="alert alert-danger col-md-9 offset-md-1">
+                                     <button class="close" data-dismiss="alert">X</button>
+                                     <center><i>Data not found</i></center>
+                                  </div>
+                                  </div>
+                              
+                          <?php              
+                         }
+                     
+                  ?>
+                </tbody>
+            </table>
+            </div>
+	</div>
+</div>
+<!-- <table class="table table-bordered border-primary"></table> -->
+<?php
+include 'footer_user.php';
+?>

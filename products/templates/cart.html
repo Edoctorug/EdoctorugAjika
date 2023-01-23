@@ -1,0 +1,85 @@
+{% extends 'header_user.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<h3 class="text-center">List of Product</h3>
+	</div>
+	<div class="row mt-2">
+     <div class="col-md-7">
+     	<h3>My Cart</h3>
+     	<hr>
+		
+     	{% for item in cartitems  %}
+		
+		
+		 <div class="card mb-3 show" >
+		  <div class="row g-0">
+		    <div class="col-md-4">
+				<!-- product is field in CartItem class -->
+		      <img
+		        src="{{ item.product.image }}"
+		        alt="..."
+		        class="img-fluid rounded-start"
+		        style="width:200px ;height: 120px"
+		      />
+		    </div>
+		    <div class="col-md-8">
+		    	<div class="row">
+		    		
+		    	<div class="col-md-5">
+		      <div class="">
+		        <h5 class="card-title">{{ item.product.name }}</h5>
+		        Category: <i>{{ item.product.category }}</i><br>
+		        
+				{{ item.product.price }} frw/item<br>
+		        
+		        <strong class="text-dark font-italic">{{ item.get_total }} frw</strong><br>
+		        <!-- <form action="" method="post">
+		        <button type="submit" class="btn btn-danger" name="remove">Remove</button>
+		        </form> -->
+				
+		      </div>
+		      </div>
+		      <div class="col-md-7 mt-5">
+		      	<form action="{% url 'products:plus_item' item.product.id %}" method="post">
+				{% csrf_token %}
+
+		      	<button type="submit" name="minus-btn"class="  btn bg-light border rounded-circle d-inline">-</button>
+		      	<input type="text" value="{{ item.quantity}}" id="quantity" name="quantity" class="form-control w-25 d-inline">
+		      	<button type="submit" name="plus-btn"class=" btn bg-light border rounded-circle d-inline">+</button>
+		      	</form>
+		      </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		{% endfor %}      
+
+     	
+     	  
+     </div>
+     <div class="col-md-4 offset-md-1 border rounded mt-5 bg-white h-25">
+     	<h3>Price Details</h3>
+     	<hr>
+		<div class="row">
+     	 <div class="col-md-6">
+     	 	
+            <h6>Price all of ({{ cart.qty_cart_total }} Items)</h6>
+            <h6>Delivery Charges</h6>
+            <hr>
+            <h6>Amount Payable</h6>
+     	 </div>
+     	 <div class="col-md-6">
+     	 	<h6><strong id="">{{ cart.get_cart_total }}</strong></h6>
+			<h6><strong id="">0</strong></h6></h6>
+			<hr>
+			<h6><strong id="price">{{ cart.get_cart_total }}</strong> frw</h6></h6>
+     	 	
+     	 </div>
+		</div>
+     </div>
+	</div>
+</div>
+
+
+{% endblock %}
