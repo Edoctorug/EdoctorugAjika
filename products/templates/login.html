@@ -44,14 +44,14 @@
                     </div> -->
                   <div class="form-group col-md-12 mb-3">
                   <div class="input-group " id="password">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
                     {{form.password1}}
                       <span class="input-group-text" id="basic-addon2">Password</span>
                   </div>
                   </div>
                   <div class="form-group col-md-12 mb-3">
                     <div class="input-group ">
-                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
                       {{form.password2}}
                         <span class="input-group-text" id="basic-addon2">Confirm Password</span>
                     </div>
@@ -81,16 +81,16 @@
              {% endif %}
               <form method="post" action="{% url 'products:login_client' %}" >
                 {% csrf_token %}
-              <label for="basic-url" class="form-label">Your Email</label>
+              <label for="basic-url" class="form-label">Your Username</label>
               <div class="input-group mb-3">
                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
                  aria-describedby="basic-addon1" name="username" />
-                 <span class="input-group-text" id="basic-addon2">Email</span>
+                 <span class="input-group-text" id="basic-addon2">Username</span>
              </div>
              <label for="basic-url" class="form-label">Your Password</label>
              <div class="input-group mb-3">
-               <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+               <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"></i></span>
                <input type="password" class="form-control" placeholder="*************" aria-label="Username"
                  aria-describedby="basic-addon1" name="password" />
                  <span class="input-group-text" id="basic-addon2">Password</span>
