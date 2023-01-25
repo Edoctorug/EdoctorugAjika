@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import Product, Client, Cart, CartItem
+from .models import Product, Client, Cart, CartItem, Variation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -9,10 +9,22 @@ from .forms import RegisterUserForm , ClientForm
 
 
 def index(request):
+
     products = Product.objects.all()
 
     return render(request, 'index.html', {'products':products})
- 
+
+
+def view_product(request, product_id):
+    products = Product.objects.all()
+    user = request.user
+    cart, created = Cart.objects.get_or_create(user = user, completed = False)
+    product = Product.objects.get(id = product_id)
+    product_details = Variation.objects.filter(product = product) 
+    
+
+    return render(request, 'view_product.html', {'cart':cart,'product':product,'product_details':product_details})
+
 
 def indexx(request):
     products = Product.objects.all()
@@ -81,53 +93,41 @@ def cart_page(request):
     return render(request, 'cart.html', {'cartitems':cartitems,'cart':cart})
 
 
-def updateCart(request):
-    data = json.loads(request.body)
-    productId = data["productId"]
-    action = data["action"]
-    user = request.user
-    product = Product.objects.get(id=productId)
-    cart, created = Cart.objects.get_or_create(user = user, completed = False)
-    cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
 
-    if action == "add":
+
+def new_add(request):
+
+    if request.method == "POST":
+        product_id = request.POST['product_id']
+        variation_id = request.POST['variation_id']
+        user = request.user
+        product = Product.objects.get(id=product_id)
+        variation_id = Variation.objects.get(id=variation_id, product=product_id)
+        cart, created = Cart.objects.get_or_create(user = user, completed = False)
+        cartitem, created = CartItem.objects.get_or_create(cart = cart, variation = variation_id)
+
         cartitem.quantity += 1
         cartitem.save()
-    
-    return JsonResponse("cart updated", safe = False)
-
-
-def new_add(request, product_id):
-    
-    user = request.user
-    product = Product.objects.get(id=product_id)
-    cart, created = Cart.objects.get_or_create(user = user, completed = False)
-    cartitem, created = CartItem.objects.get_or_create(cart = cart, product = product)
-
-    cartitem.quantity += 1
-    cartitem.save()
     
     return redirect('products:client')
 
 
-def plus_item(request, product_id):
+def plus_item(request, variation_id):
     user = request.user
-    product = Product.objects.get(id = product_id)
+    variation = Variation.objects.get(id = variation_id)
     cart= Cart.objects.get(user = user, completed = False)
-    cartitem = CartItem.objects.get(cart = cart, product = product)
+    cartitem = CartItem.objects.get(cart = cart, variation = variation)
 
     if request.method == "POST":
         if "plus-btn" in request.POST:
             cartitem.quantity += 1
             cartitem.save()
-        elif "minus-btn" in request.POST:
+        else:
             cartitem.quantity -= 1
             cartitem.save()
-
             if cartitem.quantity == 0:
                 cartitem.delete()
-        else:
-            me = product.name
+        
     return redirect('products:cart_page')
 
 

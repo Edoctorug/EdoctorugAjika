@@ -7,7 +7,7 @@ class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     fullname = models.CharField(max_length=50)
     email =  models.EmailField(max_length=50, unique=True)
-    image =  models.ImageField(null=True, blank=True, upload_to='products/static/products/img')
+    image =  models.ImageField(null=True, blank=True, upload_to='image')
     password = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -18,11 +18,21 @@ class Client(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
-    price = models.IntegerField()
-    image = models.ImageField(upload_to='products/static/products/img')
+    image = models.ImageField(null=True,upload_to='image')
+    
 
     def __str__(self):
         return self.name
+
+
+class Variation(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,default=1)
+    name = models.CharField(max_length=255, null=True, unique=True)
+    price = models.IntegerField()
+    image = models.ImageField(upload_to='image')
+
+    def __str__(self):
+        return self.name+"("+self.product.name+")"
 
 
 class Cart(models.Model):
@@ -53,17 +63,17 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete = models.CASCADE )
-    product = models.ForeignKey(Product, on_delete = models.CASCADE )
+    variation = models.ForeignKey(Variation, on_delete = models.CASCADE, default=1 )
     quantity = models.IntegerField(default=0)
 
     @property
     def get_total(self):
-        total = self.product.price * self.quantity
+        total = self.variation.price * self.quantity
         return total
 
 
     def __str__(self):
-        return self.product.name +"("+ str(self.id)  +")"
+        return self.variation.name +"("+ str(self.id)  +")"
 
 
 

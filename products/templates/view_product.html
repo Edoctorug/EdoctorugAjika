@@ -1,0 +1,79 @@
+{% extends 'header_user.html' %}
+
+{% block content %}
+
+<div class="container">
+	
+	<div class="row mt-2">
+        
+		<section class="text-center mb-4">
+            <div class="col-md-7 offset-2" >
+                <div class="card mb-3">
+                    <div class="card-img-top" alt="Wild Landscape" >
+                        <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
+                            <div class="carousel-inner">
+                              
+                              <div class="carousel-item active">
+                                <img src="{{ product.image.url }}" style="height: 300px;" class="d-block w-100" alt="Wild Landscape" />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Product Image</h5>
+                                    <p>Undercover Product Image.</p>
+                                  </div>
+                              </div>
+                              
+                              {% for item in product_details %}
+                              <div class="carousel-item">
+                                <img src="{{ item.image.url}}" style="height: 300px;" class="d-block w-100" alt="Wild Landscape"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ item.name }}</h5>
+                                    <p>{{ item.price }} Rwf</p>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                              
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleControls" data-mdb-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ product.name }}</h5>
+                      <p class="card-text">
+                  
+                      </p>
+                      <form method="post" action="{% url 'products:new_add'%}" >
+                        {% csrf_token %}
+                      
+                     <div class="row">
+                        {% for items in product_details  %}
+                        <div class="col-md-4">
+                            {{ items.name }}:<input type="radio" name="variation_id" value="{{ items.id }}" class="form-radio">
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                     <input type="hidden" name="product_id" value="{{ product.id }}" >
+                     
+                     <div class="input-group mb-3">
+                       <button type="submit" class="btn btn-primary btn-block" name="login">Add to cart</button>
+                     </div>
+                     </form>
+                      <p class="card-text">
+                        <small class="text-muted"><i>Choose Your Desired Item </i> </small>
+                      </p>
+                    </div>
+                  </div>
+                
+            
+            </div>
+		</section>
+	</div>
+</div>
+
+{% endblock %}

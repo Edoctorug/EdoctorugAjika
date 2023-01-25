@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
-from django.conf.urls.static import static
-from django.conf import settings
+
 
 
 app_name = 'products'
@@ -16,10 +15,9 @@ urlpatterns=[
     path('login_client', views.login_client, name='login_client'),
     path('cart_page', views.cart_page, name='cart_page'),
 
-    path('updateCart', views.updateCart, name='updateCart'),
-    path('plus_item/<product_id>', views.plus_item, name='plus_item'),
-    path('new_add/<product_id>', views.new_add, name='new_add'),
+    path('plus_item/<int:variation_id>', views.plus_item, name='plus_item'),
+    path('new_add', views.new_add, name='new_add'),
+    path('view/<int:product_id>/product_item', views.view_product, name='view')
    
 ] 
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

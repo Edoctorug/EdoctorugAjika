@@ -24,7 +24,7 @@
 		  <div class=" hover-overlay ripple" data-mdb-ripple-color="light">
 
 			<img
-			  src="{{ product.image }}"
+			  src="{{ product.image.url }}"
 			  class="img-fluid"
 			  style="width:180px;height: 120px;"
 			/>
@@ -36,8 +36,7 @@
 			  {{ product.name }} <br>
 			 
 			</p>
-			<!-- <a href="#" id="" class="btn btn-primary addtocart " data-action="add" data-product="{{ product.id }}">Add</a> -->
-			<a href="{% url 'products:new_add' product.id %}" id="" class="btn btn-primary addtocart " >Add to cart</a>
+			<a href="{% url 'products:view' product.id %}" id="" class="btn btn-primary" >View</a>
 
 		  </div>
 		</div>
