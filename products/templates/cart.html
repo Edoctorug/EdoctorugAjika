@@ -17,7 +17,7 @@
 		    <div class="col-md-4">
 				<!-- product is field in CartItem class -->
 		      <img
-		        src="{{ item.product.image }}"
+		        src="{{ item.variation.image.url }}"
 		        alt="..."
 		        class="img-fluid rounded-start"
 		        style="width:200px ;height: 120px"
@@ -28,10 +28,10 @@
 		    		
 		    	<div class="col-md-5">
 		      <div class="">
-		        <h5 class="card-title">{{ item.product.name }}</h5>
-		        Category: <i>{{ item.product.category }}</i><br>
+		        <h5 class="card-title">{{ item.variation.name }}</h5>
+		        Product: <i>{{ item.variation.product.name }}</i><br>
 		        
-				{{ item.product.price }} frw/item<br>
+				{{ item.variation.price }} frw/item<br>
 		        
 		        <strong class="text-dark font-italic">{{ item.get_total }} frw</strong><br>
 		        <!-- <form action="" method="post">
@@ -41,7 +41,7 @@
 		      </div>
 		      </div>
 		      <div class="col-md-7 mt-5">
-		      	<form action="{% url 'products:plus_item' item.product.id %}" method="post">
+		      	<form action="{% url 'products:plus_item' item.variation.id %}" method="post">
 				{% csrf_token %}
 
 		      	<button type="submit" name="minus-btn"class="  btn bg-light border rounded-circle d-inline">-</button>
